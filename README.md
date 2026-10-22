@@ -1,6 +1,5 @@
 # CSV Folder Processor -- CSV file processing and database registration
 
--
 
 A background service that watches a folder for csv files, validates them, and saves the data to a database
 
