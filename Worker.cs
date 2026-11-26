@@ -7,6 +7,7 @@ public class Worker(ILogger<Worker> logger, IOptions<WatchOptions> options) : Ba
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+       Console.WriteLine($"Watching folder: {options.Value.FolderWatched}");
        FileSystemWatcher watcher = new FileSystemWatcher(options.Value.FolderWatched);
        
        watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite 
@@ -21,6 +22,7 @@ public class Worker(ILogger<Worker> logger, IOptions<WatchOptions> options) : Ba
 
     private void OnCreated(object sender, FileSystemEventArgs e)
     {
-        Console.WriteLine($"Arquivo criado em {options.Value.FolderWatched}");
+        FileInfo file = new FileInfo(e.FullPath);
+        Console.WriteLine($"- {file.Name} criado em {options.Value.FolderWatched}");
     }
 }
